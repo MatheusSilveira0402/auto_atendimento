@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<Map<String, String>> produtos = [
-    {"nome": "Hamburguer", "imagem": "https://source.unsplash.com/400x300/?burger"},
-    {"nome": "Pizza", "imagem": "https://source.unsplash.com/400x300/?pizza"},
-    {"nome": "Coxinha", "imagem": "https://source.unsplash.com/400x300/?snack"},
-    {"nome": "Sorvete", "imagem": "https://source.unsplash.com/400x300/?icecream"},
+    {"nome": "Hamburguer", "imagem": "assets/images/burger.png"},
+    {"nome": "Pizza", "imagem": "assets/images/pizza.png"},
+    {"nome": "Coxinha", "imagem": "assets/images/snack.png"},
+    {"nome": "Sorvete", "imagem": "assets/images/icecream.png"},
   ];
+
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: ClipRRect(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                        child: Image.network(produtos[index]["imagem"]!, fit: BoxFit.cover, width: double.infinity),
+                        child: Image.asset(produtos[index]["imagem"]!, fit: BoxFit.cover, width: double.infinity),
                       ),
                     ),
                     Padding(

@@ -1,3 +1,4 @@
+import 'package:auto_atendimento/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'screens/cart_screen.dart';
@@ -7,27 +8,30 @@ void main() {
   runApp(AutoAtendimentoApp());
 }
 
-class AutoAtendimentoApp extends StatelessWidget {
+class AutoAtendimentoApp  extends StatelessWidget {
+  const AutoAtendimentoApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+       debugShowCheckedModeBanner: false,
       title: 'Auto Atendimento',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: MainScreen(),
+      theme: AppTheme.lightTheme, // Modo claro
+      darkTheme: AppTheme.darkTheme, // Modo escuro
+      themeMode: ThemeMode.system,
+      home: _MainScreen(),
     );
   }
 }
 
-class MainScreen extends StatefulWidget {
+class _MainScreen extends StatefulWidget {
+
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<_MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
