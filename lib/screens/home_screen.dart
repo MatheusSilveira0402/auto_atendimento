@@ -1,3 +1,5 @@
+import 'package:auto_atendimento/widgets/custom_appbar.dart';
+import 'package:auto_atendimento/widgets/notifications_icon.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +15,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("O que você quer comer?", style: TextStyle(color: Colors.white))),
+      appBar: CustomAppBar(
+        title: "O que você quer comer?",
+        actions: [NotificationIcon()],
+      ),
       body: Padding(
         padding: EdgeInsets.all(10),
         child: GridView.builder(
@@ -27,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/detalhe', arguments: produtos[index]);
+                //Navigator.pushNamed(context, '/detail', arguments: produtos[index]);
               },
               child: Card(
                 elevation: 4,
@@ -37,12 +42,19 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: ClipRRect(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                        child: Image.asset(produtos[index]["imagem"]!, fit: BoxFit.cover, width: double.infinity),
+                        child: Image.asset(
+                          produtos[index]["imagem"]!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
-                      child: Text(produtos[index]["nome"]!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        produtos[index]["nome"]!,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),
