@@ -60,7 +60,9 @@ class _MainScreenState extends State<_MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
+      body: ScrollConfiguration(
+        behavior: ScrollBehavior().copyWith(overscroll: false),
+        child: _screens[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Início"),

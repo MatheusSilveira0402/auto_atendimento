@@ -1,66 +1,40 @@
-import 'package:auto_atendimento/widgets/custom_appbar.dart';
-import 'package:auto_atendimento/widgets/notifications_icon.dart';
+import 'package:auto_atendimento/ui/size_extensions.dart';
 import 'package:flutter/material.dart';
+import '../widgets/custom_appbar.dart';
+import '../widgets/notifications_icon.dart';
+import '../widgets/carousel.dart';
+import '../widgets/product_list.dart';
 
 class HomeScreen extends StatelessWidget {
-  final List<Map<String, String>> produtos = [
-    {"nome": "Hamburguer", "imagem": "assets/images/burger.png"},
-    {"nome": "Pizza", "imagem": "assets/images/pizza.png"},
-    {"nome": "Coxinha", "imagem": "assets/images/snack.png"},
-    {"nome": "Sorvete", "imagem": "assets/images/icecream.png"},
-  ];
-
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "O que você quer comer?",
+        title: "",
         actions: [NotificationIcon()],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.8,
-          ),
-          itemCount: produtos.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                //Navigator.pushNamed(context, '/detail', arguments: produtos[index]);
-              },
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                        child: Image.asset(
-                          produtos[index]["imagem"]!,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        produtos[index]["nome"]!,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
+      body: ScrollConfiguration(
+        behavior: ScrollBehavior().copyWith(scrollbars: false,),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(), 
+          child: Center(
+            child: Container(
+              width: context.percentWidth(1),
+              height: context.percentHeigth(1),
+              padding: EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: 30.0,
+                children: [
+                  CarouselWidget(), 
+                  ProductList(title: "Os mais pedidos"), 
+                  ProductList(title: "Maiores descontos"), 
+                ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
