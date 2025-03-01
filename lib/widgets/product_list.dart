@@ -1,13 +1,16 @@
-import 'package:auto_atendimento/ui/size_extensions.dart';
+import 'package:auto_atendimento/providers/route_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_atendimento/ui/size_extensions.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class ProductList extends StatelessWidget {
   final String title;
   final List<Map<String, String>> products = [
-    {"name": "Hamburguer", "image": "assets/images/burger.png"},
-    {"name": "Pizza", "image": "assets/images/pizza.png"},
-    {"name": "Coxinha", "image": "assets/images/snack.png"},
-    {"name": "Sorvete", "image": "assets/images/icecream.png"},
+    {"name": "Hamburguer", "image": "/images/burger.svg"},
+    {"name": "Pizza", "image": "/images/pizza.svg"},
+    {"name": "Coxinha", "image": "/images/snack.svg"},
+    {"name": "Sorvete", "image": "/images/icecream.svg"},
   ];
 
   ProductList({super.key, required this.title});
@@ -16,7 +19,6 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 10,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -27,30 +29,39 @@ class ProductList extends StatelessWidget {
           width: context.percentWidth(0.9),
           height: 140,
           child: ScrollConfiguration(
-            behavior: ScrollBehavior().copyWith(scrollbars: false), // Esconde a barra de rolagem
+            behavior: ScrollBehavior().copyWith(scrollbars: false),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(), // Mantém rolagem fluida
+              physics: BouncingScrollPhysics(),
               itemCount: products.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(left: 16),
-                  child: SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Card(
-                      elevation: 4.0,
-                      margin: EdgeInsets.zero,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        spacing: 10,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(products[index]["image"]!,)
-                          ),
-                          Text(products[index]["name"]!, style: TextStyle(fontSize: 14)),
-                        ],
+                  child: GestureDetector(
+                    onTap: () {
+                      Provider.of<RouteProvider>(context, listen: false).changeRoute(
+                        '/productDetails',
+                        context,
+                        arguments: {"name": products[index]["name"], "image": products[index]["image"]},
+                      );
+                    },
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: Card(
+                        elevation: 4.0,
+                        margin: EdgeInsets.zero,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SvgPicture.asset(products[index]["image"]!, fit: BoxFit.cover, width: 105, height: 110,),
+                            ),
+                            SizedBox(height: 5),
+                            Text(products[index]["name"]!, style: TextStyle(fontSize: 14)),
+                          ],
+                        ),
                       ),
                     ),
                   ),
