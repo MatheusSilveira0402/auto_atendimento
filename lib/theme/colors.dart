@@ -20,7 +20,7 @@ class AppColors {
   static const Color appBarDark = backgroundDark; 
 
   // Botões
-  static const Color buttonBackground = accent; // Amarelo para botões
+  static const Color buttonBackground = Colors.red; // Amarelo para botões
   static const Color buttonText = Colors.white; // Texto branco para botões
 
   // Bordas e Destaques
